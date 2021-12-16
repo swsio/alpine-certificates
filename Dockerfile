@@ -7,9 +7,9 @@ ARG FROM_IMAGE=alpine
 ARG ALPINE_VERSION=3.15
 FROM $FROM_IMAGE:$ALPINE_VERSION
 
-RUN apk --update --no-cache add ca-certificates \
-  && rm -rf/var/cache/apk/* \
-  && update-ca-certificates
+RUN apk --update --no-cache add ca-certificates 
+RUN rm -rf/var/cache/apk/* 
+RUN update-ca-certificates
 COPY Letsencrypt_Root_CA.crt /usr/local/share/ca-certificates/
 
 
