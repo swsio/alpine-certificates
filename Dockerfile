@@ -4,11 +4,13 @@
 # - This image is intended to be based on alpine:latest, which is currently 3.10.
 #   We're doing this to ensure the latest ca-certificates package.
 ARG FROM_IMAGE=alpine
-ARG ALPINE_VERSION=3.10
+ARG ALPINE_VERSION=3.15
 FROM $FROM_IMAGE:$ALPINE_VERSION
 
-ARG CA_PKG_VERSION=20191127-r2
-RUN apk --update --no-cache add ca-certificates=${CA_PKG_VERSION}
+RUN apk --update --no-cache add ca-certificates
+
+RUN sed -i 's/mozilla\/DST_Root_CA_X3.crt/!mozilla\/DST_Root_CA_X3.crt/g' /etc/ca-certificates.conf
+RUN update-ca-certificates
 
 COPY scripts/bundle-certificates /scripts/
 
